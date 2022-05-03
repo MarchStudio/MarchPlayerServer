@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Playlist {
 
-    public static ArrayList pl = new ArrayList<Song>();
+    public static ArrayList<Song> pl = new ArrayList<Song>();
 
     static void add(Song TargetSg) {
         pl.add(TargetSg);
@@ -10,5 +10,14 @@ public class Playlist {
 
     static void remove(Song TargetSg) {
         pl.remove(TargetSg);
+    }
+
+    static String getAllUrls(){
+        String result = "";
+        for (Song song : pl) {
+            result += song.toString();
+            result += "\n";
+        }
+        return result;
     }
 };
