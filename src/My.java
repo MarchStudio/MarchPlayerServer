@@ -2,6 +2,15 @@ import java.util.Calendar;
 
 public class My{
 
+    public static boolean isInied = false;
+
+    public static void _ini_(int httpPt, int udpPt){
+        httpPort = httpPt;
+        udpPort = udpPt;
+
+        isInied = true;
+    }
+
     public static String Version = "22.0503_dev";
 
     public static String TimeOfDay(){
@@ -17,5 +26,9 @@ public class My{
     
     public static int httpPort = 5252;
     public static int udpPort = 5253;
+
+    void CheckConfigFile(){
+        
+    }
 
 };

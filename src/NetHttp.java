@@ -18,7 +18,7 @@ public class NetHttp {
         createContext(server, "/UdpPort", Requests.UdpPort);
         createContext(server, "/PlayList", Requests.PlayList);
         server.start();
-        Log.print(String.format("Http Server started at port %d.", My.httpPort));
+        Log.print(String.format("HttpServer started at port %d.", My.httpPort));
     }
 
     static class response implements HttpHandler {
@@ -37,7 +37,7 @@ public class NetHttp {
             String response = "";
             switch (this.request) {
                 case Requests.Info:
-                    response = "MarchPlayerServer\nVersion " + My.Version;
+                    response = String.format("<title>MarchPlayerServer</title><body>MarchPlayerServer<br>Version %s.<br>Running on %s.</body>", My.Version, System.getProperty("os.name"));
                     break;
                 case Requests.UdpPort:
                     response = "" + My.udpPort;
