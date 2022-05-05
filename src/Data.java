@@ -22,7 +22,7 @@ public class Data {
         return "";
     }
 
-    private static boolean MagicCompare(String a, String b) { // 神奇比较[捂脸哭]
+    public static boolean MagicCompare(String a, String b) { // 神奇比较[捂脸哭]
         char[] a1 = a.toCharArray(), b1 = b.toCharArray();
         if (a1.length != b1.length) {
             return false;
