@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.List;
 
 public class Playlist {
 
@@ -8,9 +7,10 @@ public class Playlist {
     static void add(Song TargetSg) {
         pl.add(TargetSg);
         Log.print(String.format("Song \"%s\" added.", TargetSg.toString()));
+        SavePlaylist();
     }
 
-    //https://host:5252/Playlist/Add/?Song.toString()
+    //https://host:5252/Playlist/Add/?{Song.toString()}
 
     static void add(String songSource) throws Exception {
         try {
@@ -32,9 +32,10 @@ public class Playlist {
     static void remove(Song TargetSg) {
         pl.remove(TargetSg);
         Log.print(String.format("Song \"%s\" removed.", TargetSg.toString()));
+        SavePlaylist();
     }
 
-    //https://host:5252/Playlist/Remove/?Song.toString()
+    //https://host:5252/Playlist/Remove/?{Song.toString()}
 
     static void remove(String songSource) throws Exception {
         try {
@@ -65,5 +66,13 @@ public class Playlist {
             result += "\n";
         }
         return result;
+    }
+
+    static void ReadPlaylist(){
+        pl = Data.ReadPlaylist();
+    }
+
+    static void SavePlaylist() {
+        Data.WritePlaylist(pl);
     }
 };

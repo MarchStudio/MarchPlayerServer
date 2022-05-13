@@ -2,6 +2,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;;
 
 public class Data {
@@ -38,9 +39,9 @@ public class Data {
     public static void SetConfig(String ConfigName, String Value) {
         for (int i = 0; i < Configs.length; i++) {
             if (MagicCompare(Configs[i].Name, ConfigName)) {
-                    Configs[i].Val = Value;
-                    Log.print(String.format("Config \"%s\" got value \"%s\".", ConfigName, Value));
-                    WriteConfig();
+                Configs[i].Val = Value;
+                Log.print(String.format("Config \"%s\" got value \"%s\".", ConfigName, Value));
+                WriteConfig();
                 return;
             }
         }
@@ -80,6 +81,49 @@ public class Data {
         } catch (IOException ex) {
             ex.printStackTrace();
             Log.print(String.format("Unable to access file \"%s\".", Directory + "/config.cfg"));
+        }
+    }
+
+    public static ArrayList<Song> ReadPlaylist() {
+        ArrayList<Song> result = new ArrayList<Song>();
+        try {
+            File file = new File(Directory + "/playlist.cfg");
+            if (!file.exists()) {
+                file.createNewFile();
+                WritePlaylist(result);
+            }
+            List<String> allLines = Files.readAllLines(Paths.get(Directory + "/playlist.cfg"), StandardCharsets.UTF_8);
+            for (String cl : allLines) {
+                Song song = new Song();
+                String[] source = cl.split(";");
+                song.name = source[0];
+                song.singer = source[1];
+                song.url = source[2];
+                song.coverUrl = source[3];
+                song.uploader = source[4];
+                result.add(song);
+                Log.print("Save playlist.");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            Log.print("Falied to load playlist.");
+        }
+        return result;
+    }
+
+    public static void WritePlaylist(ArrayList<Song> pl){
+        try {
+            File cfgPlaylist= new File(Directory + "/playlist.cfg");
+            FileOutputStream fo = new FileOutputStream(cfgPlaylist);
+            for (Song sg : pl) {
+                fo.write(sg.toString().getBytes("utf-8"));
+                fo.write('\n');
+            }
+            fo.flush();
+            fo.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            Log.print(String.format("Unable to access file \"%s\".", Directory + "/playlist.cfg"));
         }
     }
 
