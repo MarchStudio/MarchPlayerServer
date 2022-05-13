@@ -4,4 +4,5 @@ public class Requests {
         public static final String PlayList = "PlayList";
         public static final String PlayListAdd = "PlayList/Add";
         public static final String PlayListRemove = "PlayList/Remove";
+        public static final String PlayStatus = "PlayStatus";
 }

@@ -19,6 +19,7 @@ public class NetHttp {
         createContext(server, "/PlayList", Requests.PlayList);
         createContext(server, "/PlayList/Add", Requests.PlayListAdd);
         createContext(server, "/PlayList/Remove", Requests.PlayListRemove);
+        createContext(server, "/PlayStatus", Requests.PlayStatus);
         server.start();
         Log.print(String.format("HttpServer started at port %d.", My.httpPort));
     }
@@ -67,6 +68,9 @@ public class NetHttp {
                         response = "Failed!";
                         rCode = 404;
                     }
+                    break;
+                case Requests.PlayStatus:
+                    response = VPlayer.getStatus();
                     break;
                 default:
                     response = null;
