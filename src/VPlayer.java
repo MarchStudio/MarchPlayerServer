@@ -11,7 +11,17 @@ public class VPlayer {
     }
 
     public static void Pause(){
-        isPlaying = !isPlaying;
+        isPlaying = false;
+    }
+
+    public static void Play(){
+        isPlaying = true;
+    }
+
+    public static void Play(Song song){
+        playLength = 0;
+        onPlay = song;
+        Play();
     }
 
     public static String getStatus(){
