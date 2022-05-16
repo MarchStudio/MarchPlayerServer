@@ -14,14 +14,7 @@ public class Playlist {
 
     static void add(String songSource) throws Exception {
         try {
-            Song song = new Song();
-            String[] source = songSource.split(";");
-            song.name = source[0];
-            song.singer = source[1];
-            song.url = source[2];
-            song.coverUrl = source[3];
-            song.uploader = source[4];
-            add(song);
+            add(Song.toSong(songSource));
         } catch (Exception ex) {
             ex.printStackTrace();
             Log.print(String.format("Add song from string \"%s\" failed.", songSource));
