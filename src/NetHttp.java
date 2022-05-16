@@ -79,7 +79,7 @@ public class NetHttp {
                     break;
                 case Requests.VPlayerControl: // http://host/VPlayer/Control?{PlayControl.*}|{Song}
                     String raw = exchange.getRequestURI().getQuery();
-                    String raws[] = raw.split("|");
+                    String raws[] = raw.split(":");
                     if (raws.length < 1) {
                         response = "Invalid.";
                         rCode = 400;
@@ -104,11 +104,13 @@ public class NetHttp {
                             break;
                         case PlayControl.Pause:
                             VPlayer.Pause();
+                            break;
                         default:
                             response = "Invalid.";
                             rCode = 400;
                             break;
                     }
+                    response = VPlayer.getStatus();
                     break;
                 default:
                     response = null;

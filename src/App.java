@@ -6,4 +6,7 @@ public class App {
         NetHttp.startHttp();
         NetUdp.startUdp();
     }
+
+    // : ; {} 都是数据分割符号，不得出现在内容文本中！！
+
 }
