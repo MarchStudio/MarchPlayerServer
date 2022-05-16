@@ -31,4 +31,23 @@ public class VPlayer {
         return result;
     }
 
+    public static String getLength(){
+        Song song = new Song();
+        String[] source = songSource.split(";");
+        song.url = source[2];
+        return getMp3Length(song.url);
+    }
+
+    public static long getMp3Length(String url) {
+		File file = new File(url);
+		try {
+			MP3File f = (MP3File) AudioFileIO.read(file);
+			MP3AudioHeader audioHeader = (MP3AudioHeader) f.getAudioHeader();
+			// System.out.println(audioHeader.getTrackLength());
+			return audioHeader.getTrackLength();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 }
