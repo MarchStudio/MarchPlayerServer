@@ -127,7 +127,7 @@ public class Data {
         }
     }
 
-    public static void SetDirectory(String directory) {
+    public static void SetDirectory(String directory) {  //directory变量是“~”的位置
         Directory = directory + "/.MarchPlayerServer";
         Log.print("Data directory is " + Directory + " .");
         try {

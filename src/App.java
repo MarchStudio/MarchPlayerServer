@@ -4,5 +4,6 @@ public class App {
         Data.SetDirectory(System.getProperty("user.home").replaceAll("\\\\", "/"));
         Playlist.ReadPlaylist();
         NetHttp.startHttp();
+        NetUdp.startUdp();
     }
 }
