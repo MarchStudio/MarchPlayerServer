@@ -1,3 +1,9 @@
+import java.io.File;
+
+import org.jaudiotagger.audio.AudioFileIO;
+import org.jaudiotagger.audio.mp3.MP3AudioHeader;
+import org.jaudiotagger.audio.mp3.MP3File;
+
 public class VPlayer {
     
     static boolean isPlaying = PlayState.Paused;
@@ -31,11 +37,8 @@ public class VPlayer {
         return result;
     }
 
-    public static String getLength(){
-        Song song = new Song();
-        String[] source = songSource.split(";");
-        song.url = source[2];
-        return getMp3Length(song.url);
+    public static long getLength(Song songSource){
+        return getMp3Length(songSource.url);
     }
 
     public static long getMp3Length(String url) {
