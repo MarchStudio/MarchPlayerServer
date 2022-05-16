@@ -1,5 +1,3 @@
-import javax.naming.InitialContext;
-
 public class NetUdp {
 
     public static void startUdp(){

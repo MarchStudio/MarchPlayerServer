@@ -20,6 +20,8 @@ public class NetHttp {
         createContext(server, "/PlayList/Add", Requests.PlayListAdd);
         createContext(server, "/PlayList/Remove", Requests.PlayListRemove);
         createContext(server, "/PlayStatus", Requests.PlayStatus);
+        createContext(server, "/VPlayer", Requests.VPlayer);
+        createContext(server, "/VPlayer/Control", Requests.VPlayerControl);
         server.start();
         Log.print(String.format("HttpServer started at port %d.", My.httpPort));
     }
@@ -57,7 +59,7 @@ public class NetHttp {
                         response = "Added!";
                     } catch (Exception ex) {
                         response = "Failed!";
-                        rCode = 404;
+                        rCode = 400;
                     }
                     break;
                 case Requests.PlayListRemove:
@@ -72,11 +74,48 @@ public class NetHttp {
                 case Requests.PlayStatus:
                     response = VPlayer.getStatus();
                     break;
+                case Requests.VPlayer:
+                    response = VPlayer.getStatus();
+                    break;
+                case Requests.VPlayerControl: // http://host/VPlayer/Control?{PlayControl.*}|{Song}
+                    String raw = exchange.getRequestURI().getQuery();
+                    String raws[] = raw.split("|");
+                    if (raws.length < 1) {
+                        response = "Invalid.";
+                        rCode = 400;
+                    }
+                    String operation = "";
+                    String arg = "";
+                    operation = raws[0];
+                    if (raws.length > 1)
+                        arg = raws[1];
+                    switch (operation) {
+                        case PlayControl.Play:
+                            if (arg != "") {
+                                try {
+                                    VPlayer.Play(Song.toSong(arg));
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    Log.print(String.format("Play song \"%s\" failed.", arg));
+                                }
+                            } else {
+                                VPlayer.Play();
+                            }
+                            break;
+                        case PlayControl.Pause:
+                            VPlayer.Pause();
+                        default:
+                            response = "Invalid.";
+                            rCode = 400;
+                            break;
+                    }
+                    break;
                 default:
                     response = null;
                     break;
             }
             exchange.sendResponseHeaders(rCode, 0);
+
             OutputStream os = exchange.getResponseBody();
             os.write(response.getBytes());
             os.close();
