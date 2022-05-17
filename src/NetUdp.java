@@ -15,9 +15,9 @@ public class NetUdp {
 
     public static final int MAX_BYTES = 2048;
 
-    private DatagramSocket service;
+    private static DatagramSocket service;
 
-    private void SendNotifyMessage(){
+    public static void SendNotifyMessage(){
         try {
             //包装IP地址
             InetAddress address = InetAddress.getByName("0.0.0.0");
