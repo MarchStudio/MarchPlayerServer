@@ -6,7 +6,7 @@ public class NetUdp {
 
     public static void startUdp(){
         //TODO:添加Udp服务器启动的代码
-        Log.print(String.format("UdpServer started at port %d.", ));
+        Log.print(String.format("UdpServer started at port %d.",My.udpPort));
     }
 
     public static final String SERVICE_IP = "0.0.0.0";
