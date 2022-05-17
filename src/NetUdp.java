@@ -15,7 +15,7 @@ public class NetUdp {
 
     public static final int MAX_BYTES = 2048;
 
-    private static DatagramSocket service;
+    public static DatagramSocket service;
 
     public static void SendNotifyMessage(){
         try {
